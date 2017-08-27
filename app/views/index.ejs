@@ -16,13 +16,17 @@
   </head>
 
   <body>
-    <button type="button" onclick="startPiece()" name="start">Start</button>
-    <button type="button" name="reset">Reset</button>
-    <div id="actionsdiv">
-    </div>
-    <div id="timer">
+    <div id="controls">
+      <button type="button" onclick="startPiece()" name="start">Start</button>
+      <button type="button" name="reset">Reset</button>
     </div>
 
+    <div id="container">
+      <div id="actionsdiv">
+      </div>
+    </div>
+    <div id="timer"></div>
+    <div id="progressbar"></div>
 
     <script type="text/javascript">
       var actions = new Array(
@@ -66,14 +70,14 @@
         if (cancel) {
           return;
         } else {
-          var counter = 12;
+          var counter = 0;
           var intveralTimer = setInterval(function(){
-            counter--;
+            counter++;
               $("#timer").html(counter);
-
-              if (counter == 0)
+              $("#progressbar").css("width", counter/12*100 +'%');
+              if (counter == 12)
               {
-                counter=12;
+                counter=0;
               }
           },1000);
         }
