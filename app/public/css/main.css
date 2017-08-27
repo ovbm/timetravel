@@ -5,18 +5,23 @@ body, html{
   color:#fff;
 }
 
-#controls, #container{
-  margin:0 auto;
-  text-align: center;
+#controls{
+  position: fixed;
+  top:5vh;
+  left:50%;
+  transform: translate(-50%, 0);
 }
 
 #container{
+  margin:10vh auto;
+  text-align: center;
 
 }
 
 #actionsdiv > div{
-  transition: opacity 1s, height 1s 1s;
-  height:20px;
+  transition: opacity 1s, padding 1s, height 1s 1s, font-size 1s 1s, font-weight 1s 1s;
+  height:30vh;
+
 }
 
 #timer{
@@ -32,7 +37,7 @@ body, html{
 #progressbar{
   position: fixed;
   bottom:0;
-  height:10vh;
+  height:9vh;
   background-color: white;
 }
 
@@ -42,11 +47,13 @@ body, html{
 }
 
 .current{
-;
+  font-size: 11vh;
+  font-weight:bold;
+  padding-top:20vh;
 }
 
 .next{
-
+  font-size: 10vh;
 }
 
 .previous{
