@@ -61,20 +61,23 @@
         $("#actionsdiv").append("<div class='current'>"+current+"</div>");
         $("#actionsdiv").append("<div class='next'>"+next+"</div>");
       }
-
+      var cancel = false;
       function countdown(){
-        var counter = 12;
-        var intveralTimer = setInterval(function(){
-          counter--;
-            $("#timer").html(counter);
+        if (cancel) {
+          return;
+        } else {
+          var counter = 12;
+          var intveralTimer = setInterval(function(){
+            counter--;
+              $("#timer").html(counter);
 
-            if (counter == 0)
-            {
-              counter=12;
-            }
-        },1000);
+              if (counter == 0)
+              {
+                counter=12;
+              }
+          },1000);
+        }
       }
-
 
       function startPiece() {
           initialActions(actions);
@@ -94,6 +97,12 @@
             $(".current").addClass('previous hide').removeClass('current');
             $(".next").addClass('current').removeClass('next');
             $("#actionsdiv").append("<div class='next'>END</div>");
+            setTimeout(function(){
+              var cancel = true;
+              $(".previous").addClass('old').removeClass('previous');
+              $(".current").addClass('previous hide').removeClass('current');
+              $(".next").addClass('current').removeClass('next');
+            },12000)
 
           },599900);
       }
