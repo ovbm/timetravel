@@ -1,6 +1,6 @@
 {
   "name": "timetravel",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "description": "Composition by Ramón Oliveras",
   "main": "app/app.js",
   "scripts": {
