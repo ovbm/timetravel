@@ -13,13 +13,13 @@ body, html{
 }
 
 #container{
-  margin:10vh auto;
+  margin:30vh auto;
   text-align: center;
 
 }
 
 #actionsdiv > div{
-  transition: opacity 1s, padding 1s, height 1s 1s, font-size 1s 1s, font-weight 1s 1s;
+  transition: opacity 1s, height 1s 1s, font-size 1s 1s, font-weight 1s 1s;
   height:30vh;
 
 }
@@ -37,7 +37,7 @@ body, html{
 #progressbar{
   position: fixed;
   bottom:0;
-  height:9vh;
+  height:10vh;
   background-color: white;
 }
 
@@ -47,13 +47,14 @@ body, html{
 }
 
 .current{
+  height:20vh;
   font-size: 11vh;
-  font-weight:bold;
-  padding-top:20vh;
+  opacity:1;
 }
 
 .next{
-  font-size: 10vh;
+  font-size: 8vh;
+  opacity:0.9;
 }
 
 .previous{
