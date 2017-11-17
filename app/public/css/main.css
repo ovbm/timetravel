@@ -24,6 +24,32 @@ body, html{
 
 }
 
+.btn {
+  -webkit-border-radius: 2;
+  -moz-border-radius: 2;
+  border-radius: 2px;
+  color: #ffffff;
+  padding: 10px 20px 10px 20px;
+  border: solid #ffffff 3px;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+.btn:hover {
+  background: #ffffff;
+  color: #000000;
+  text-decoration: none;
+}
+
+.btn:focus {
+  outline:0;
+}
+
+.btn:active{
+  background: #ffffff;
+  color: #000000;
+}
+
 #timer{
   position: fixed;
   bottom:0;
@@ -37,7 +63,7 @@ body, html{
 #progressbar{
   position: fixed;
   bottom:0;
-  height:10vh;
+  height:11vh;
   background-color: white;
 }
 

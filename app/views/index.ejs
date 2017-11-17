@@ -17,8 +17,8 @@
 
   <body>
     <div id="controls">
-      <button type="button" onclick="startPiece()" name="start">Start</button>
-      <button type="button" name="reset">Reset</button>
+      <button class="btn" type="button" onclick="startPiece()" name="start">Start</button>
+      <button class="btn" type="button" onClick="window.location.reload()" name="reset">Reset</button>
     </div>
 
     <div id="container">
@@ -29,6 +29,15 @@
     <div id="progressbar"></div>
 
     <script type="text/javascript">
+
+      // function randomArray(length, max, min) {
+      //   return Array.apply(null, Array(length)).map(function() {
+      //     return Math.floor(Math.random()*(max-min+1)+min)*1000;
+      //   });
+      // }
+      //
+      // var intervals = randomArray(80,7,15);
+
       var actions = new Array(
         "Over the barre chord IV muted",
         "Over the barre chord V open",
@@ -59,56 +68,86 @@
         $("#actionsdiv").append("<div class='next'>"+rand+"</div>");
       }
 
-      function initialActions(actions){
+      function setEndAction(actions){
+        $(".previous").addClass('old').removeClass('previous');
+        $(".current").addClass('previous hide').removeClass('current');
+        $(".next").addClass('current').removeClass('next');
+        $("#actionsdiv").append("<div class='next'>END</div>");
+        setTimeout(function(){
+          $(".previous").addClass('old').removeClass('previous');
+          $(".current").addClass('previous hide').removeClass('current');
+          $(".next").addClass('current').removeClass('next');
+        },12000)
+      }
+
+      function initialActions(actions,initialCountdown){
         var current = actions[Math.floor(Math.random() * actions.length)];
         var next = actions[Math.floor(Math.random() * actions.length)];
         $("#actionsdiv").append("<div class='current'>"+current+"</div>");
         $("#actionsdiv").append("<div class='next'>"+next+"</div>");
       }
+
+
       var cancel = false;
-      function countdown(){
+      var theEnd = false;
+
+      function countdown(rand){
         if (cancel) {
           return;
         } else {
-          var counter = 0;
+          var countDownTime = 1 + rand/1000;
+          var counter = 1 + rand/1000;
           var intveralTimer = setInterval(function(){
-            counter++;
+            counter--;
               $("#timer").html(counter);
-              $("#progressbar").css("width", counter/12*100 +'%');
-              if (counter == 12)
+              $("#progressbar").css("width", 100-(counter/(countDownTime)*100) +'%');
+              if (counter == 0)
               {
-                counter=0;
+                clearInterval(intveralTimer);
               }
           },1000);
         }
       }
 
       function startPiece() {
+          var initialCountdown = 12000;
           initialActions(actions);
-          var intervalSetCurrentAction = setInterval(function(){
-            setCurrentAction(actions);
-            },12000);
 
-          countdown();
+          (function loop() {
+            if (initialCountdown == 0){
+              var rand = 1000*(Math.round(Math.random() * (15 - 7 + 1)) + 7);
+            } else {
+              var rand = 12000;
+              initialCountdown=0;
+            }
+
+            countdown(rand);
+
+            if (theEnd){
+              console.log('end');
+              var actionTimeout = setTimeout(function() {
+                setEndAction();
+                countdown(rand);
+                 setTimeout(function() {
+                   console.log('cancel');
+                   cancel = true;
+                 }, rand);
+              }, rand);
+            } else {
+              var actionTimeout = setTimeout(function() {
+                setCurrentAction(actions);
+                loop();
+              }, rand);
+            }
+          }());
 
           var intervalRemove = setInterval(function(){
             removeAction(actions,intervalRemove);
             },60000);
 
           setTimeout(function end(){
-            clearInterval(intervalSetCurrentAction);
-            $(".previous").addClass('old').removeClass('previous');
-            $(".current").addClass('previous hide').removeClass('current');
-            $(".next").addClass('current').removeClass('next');
-            $("#actionsdiv").append("<div class='next'>END</div>");
-            setTimeout(function(){
-              var cancel = true;
-              $(".previous").addClass('old').removeClass('previous');
-              $(".current").addClass('previous hide').removeClass('current');
-              $(".next").addClass('current').removeClass('next');
-            },12000)
-
-          },599900);
+            theEnd = true;
+          },479900);
       }
 
     </script>
